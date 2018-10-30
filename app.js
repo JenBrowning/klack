@@ -3,15 +3,27 @@ const express = require("express");
 const querystring = require("querystring");
 const port = 3000;
 const app = express();
+const MongoClient = require("mongodb").MongoClient;
+const dbUrl = 'mongodb://localhost:27017';
+
+app.use(express.static("./public"));
+app.use(express.json());
+
+const mongoose = require("mongoose");
+
+let message = mongoose.model('Message', { name: String, message: String})
+
+app.get('/messages', (request, response) => {
+    Message.find({}, (err, messages) => {
+        response.send(messages);
+    })
+})
 
 // List of all messages
 let messages = [];
 
 // Track last active times for each sender
 let users = {};
-
-app.use(express.static("./public"));
-app.use(express.json());
 
 // generic comparison function for case-insensitive alphabetic sorting on the name field
 function userSortFn(a, b) {
@@ -68,4 +80,11 @@ app.post("/messages", (request, response) => {
   response.send(request.body);
 });
 
-app.listen(3000);
+
+mongoose.connect(dbUrl, {useMongoClient : true}, (err) => {
+    console.log('mongodb connected', err);
+})
+
+app.listen(3000, () => {
+    console.log('server is running on port', server.address().port)
+});
