@@ -1,8 +1,11 @@
 //This is the client side
+//dont have to change anything
+
 const userList = document.getElementById("users");
 const messagesDiv = document.getElementById("messageslist");
 const textarea = document.getElementById("newmessage");
 const ding = new Audio("typewriter_ding.m4a");
+
 
 // this will be the list of all messages displayed on the client
 let messages = [{ timestamp: 0 }];
