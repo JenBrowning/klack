@@ -1,13 +1,7 @@
 //server side
 const express = require("express");
-const querystring = require("querystring");
 const port = process.env.PORT || 3001;
 const app = express();
-const MongoClient = require("mongodb").MongoClient;
-const dbUrl = 'mongodb://localhost:27017';
-const DBName = "klack";
-const DBUser = "admin";
-const DBURI = "ds019886.mlat.com:198886";
 const connectionString = process.env.CONNECTION_STRING || 'mongodb://localhost:27017/klack';
 const mongoose = require("mongoose");
 
